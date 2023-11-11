@@ -5,6 +5,6 @@ type Price struct {
 	currency string
 }
 
-func NewPrice() () {
+func NewPrice() {
 
 }
