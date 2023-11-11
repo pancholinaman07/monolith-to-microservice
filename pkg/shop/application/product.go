@@ -4,19 +4,32 @@ type productReadModel interface {
 	AllProducts() ([]products.Product, error)
 }
 
-type ProductService struct {
+type ProductsService struct {
 	repo      products.Repository
 	readModel productReadModel
 }
 
-func NewProductsService() ProductService {
+func NewProductsService() ProductsService {
 
 }
 
-func (s ProductService) AllProducts() {
+func (s ProductsService) AllProducts() {
 
 }
 
-func (s ProductService) AddProduct() error {
+type AddProductCommand struct {
+	ID            string
+	Name          string
+	Description   string
+	PriceCents    uint
+	PriceCurrency string
+}
 
+func (s ProductsService) AddProduct(cmd AddProductCommand) error {
+
+	price.NewPrice(cmd.PriceCents, cmd.PriceCurrency)
+
+	products.NewProduct(products.ID(cmd.ID), cmd.Name, cmd.Description, price)
+
+	s.repo.Save()
 }
